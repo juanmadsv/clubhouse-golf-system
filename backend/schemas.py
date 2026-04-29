@@ -3,10 +3,6 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 
-# -------------------------
-# CLUBES
-# -------------------------
-
 class ClubCreate(BaseModel):
     nombre: str
     ubicacion: Optional[str] = None
@@ -23,15 +19,11 @@ class ClubResponse(BaseModel):
         from_attributes = True
 
 
-# -------------------------
-# JUGADORES
-# -------------------------
-
 class JugadorCreate(BaseModel):
     nombre: str
     apellido: str
     matricula: str
-    handicap_index: Optional[float] = Field(None, ge= -10, le = 54)
+    handicap_index: Optional[float] = Field(None, ge=-10, le=54)
     club_id: int
 
 
@@ -40,16 +32,12 @@ class JugadorResponse(BaseModel):
     nombre: str
     apellido: str
     matricula: str
-    handicap_index: Optional[float] = Field(None, ge= -10, le = 54)
+    handicap_index: Optional[float] = Field(None, ge=-10, le=54)
     club_id: int
 
     class Config:
         from_attributes = True
 
-
-# -------------------------
-# HOYOS DE TARJETA
-# -------------------------
 
 class HoyoCreate(BaseModel):
     numero_hoyo: int = Field(..., ge=1, le=18)
@@ -66,13 +54,9 @@ class HoyoResponse(BaseModel):
         from_attributes = True
 
 
-# -------------------------
-# TARJETAS DE JUGADOR
-# -------------------------
-
 class TarjetaJugadorCreate(BaseModel):
     fecha: date
-    estado: str
+    estado: str = "manual"
     jugador_id: int
     club_id: int
     handicap_juego: int
@@ -87,8 +71,8 @@ class TarjetaJugadorResponse(BaseModel):
     jugador_id: int
     club_id: int
     matricula_jugador: str
+    handicap_index_usado: Optional[float] = None
     handicap_juego: int
-    handicap_index: Optional[float] = Field(None, ge= -10, le = 54)
     tee_salida: str
     total_ida: int
     total_vuelta: int
@@ -106,8 +90,8 @@ class TarjetaDetalleResponse(BaseModel):
     jugador_id: int
     club_id: int
     matricula_jugador: str
+    handicap_index_usado: Optional[float] = None
     handicap_juego: int
-    handicap_index: Optional[float] = Field(None, ge= -10, le = 54)
     tee_salida: str
     total_ida: int
     total_vuelta: int

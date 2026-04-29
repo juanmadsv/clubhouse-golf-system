@@ -8,7 +8,8 @@ class Club(Base):
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, unique=True, index=True, nullable=False)
     ubicacion = Column(String, nullable=True)
-    federacion = Column(String, nullable=False)
+    federacion = Column(String, nullable=True)
+
 
 class Jugador(Base):
     __tablename__ = "jugadores"
@@ -17,10 +18,9 @@ class Jugador(Base):
     nombre = Column(String, index=True, nullable=False)
     apellido = Column(String, index=True, nullable=False)
     matricula = Column(String, unique=True, index=True, nullable=False)
-
-    # Handicap Index del jugador (AAG o carga manual)
     handicap_index = Column(Float, nullable=True)
 
+    # Por ahora representa el club base del jugador
     club_id = Column(Integer, ForeignKey("clubes.id"), nullable=False)
 
 
@@ -34,10 +34,9 @@ class TarjetaJugador(Base):
     jugador_id = Column(Integer, ForeignKey("jugadores.id"), nullable=False)
     club_id = Column(Integer, ForeignKey("clubes.id"), nullable=False)
 
-    # Datos históricos guardados en la tarjeta
     matricula_jugador = Column(String, nullable=False)
-    handicap_juego = Column(Integer, nullable=False)
     handicap_index_usado = Column(Float, nullable=True)
+    handicap_juego = Column(Integer, nullable=False)
     tee_salida = Column(String, nullable=False)
 
     total_ida = Column(Integer, nullable=False)
